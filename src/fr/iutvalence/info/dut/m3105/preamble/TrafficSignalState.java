@@ -6,7 +6,7 @@ public interface TrafficSignalState{
 	
 	void buttonPressed(TrafficSignal context);
 	
-	int getRemainingDuration(TrafficSignal context);
-	
+	int getRemainingTime(TrafficSignal context);
+		
 	
 }

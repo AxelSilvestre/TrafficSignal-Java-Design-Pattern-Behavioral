@@ -4,22 +4,22 @@ public abstract class TrafficSignalStateAbstract implements TrafficSignalState{
 
 	protected int duration;
 	
-	protected Class<? extends TrafficSignalState> nextState;
+	protected int remainingTime;
+	
+	protected TrafficSignalState nextState;
 	
 	@Override
 	public void secondEllapsed(TrafficSignal context) {
-		if(duration == 0){
-			try {
-				context.switchToState(nextState.newInstance());
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
-		}
-		duration--;
+		if(remainingTime == 0){
+				setState();
+				context.switchToState(nextState);
+				remainingTime = duration;
+		}else
+			remainingTime--;
 		
 	}
+	
+	protected abstract void setState();
 	
 	@Override
 	public void buttonPressed(TrafficSignal context) {
@@ -27,8 +27,8 @@ public abstract class TrafficSignalStateAbstract implements TrafficSignalState{
 	}
 	
 	@Override
-	public int getRemainingDuration(TrafficSignal context) {
-		return duration;
+	public int getRemainingTime(TrafficSignal context) {
+		return remainingTime;
 	}
 
 }

@@ -8,7 +8,7 @@ public class TrafficSignal extends Thread
 	public TrafficSignal()
 	{
 		super();
-		this.switchToState(new GreenTrafficSignalState());
+		this.switchToState(GreenTrafficSignalState.getInstance());
 	}
 
 	public void pressButton()
@@ -37,7 +37,7 @@ public class TrafficSignal extends Thread
 
 	private void secondEllapsed()
 	{
-		System.out.println(state.getRemainingDuration(this));
+		System.out.println(state.getRemainingTime(this));
 		System.out.flush();
 		state.secondEllapsed(this);
 	}
